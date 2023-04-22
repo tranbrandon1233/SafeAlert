@@ -21,6 +21,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var _currContact = -1;
+
+  void _updateContact(int newContact) {
+    setState(() {
+      this._currContact = newContact;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,7 +45,7 @@ class _MyAppState extends State<MyApp> {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: ContactView(),
+      home: ContactView(update: _updateContact),
     );
   }
 }

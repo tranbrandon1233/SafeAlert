@@ -3,7 +3,8 @@ import 'package:fast_contacts/fast_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ContactView extends StatefulWidget {
-  const ContactView({super.key});
+  final ValueChanged<int> update;
+  ContactView({required this.update});
 
   @override
   State<ContactView> createState() => _ContactViewState();
@@ -47,6 +48,11 @@ class _ContactViewState extends State<ContactView> {
                           contact.emails.isNotEmpty
                               ? Text(contact.emails[0])
                               : const Text(''),
+                          ElevatedButton(
+                            onPressed: () => widget.update(
+                                index), // Passing value to the parent widget.
+                            child: const Text('Make My Contact'),
+                          )
                         ],
                       ),
                     ),
