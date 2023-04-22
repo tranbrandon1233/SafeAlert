@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -61,6 +63,38 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Widget _buildButton(BuildContext context, Color color) {
+    return Container(
+      margin: EdgeInsets.only(left: 10, right: 10),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(25.0),
+      ),
+      child: ElevatedButton(
+        onPressed: () => print("Helllo"),
+        child:  const Text(
+          'Send Emergency Message',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Be Vietnam'
+          ),
+        ),
+      )
+    );
+
+  }
+
+  Widget _buildGoogleMap(BuildContext context) {
+    return GoogleMap(initialCameraPosition: CameraPosition(
+      target: LatLng(37.42796133580664, -122.085749655962),  // Set the initial map position
+    zoom: 14.0,  // Set the initial zoom level
+    ),
+    compassEnabled: true,
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -76,23 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -102,6 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            _buildGoogleMap(context),
+            _buildButton(context, Colors.black)
           ],
         ),
       ),
@@ -110,6 +130,19 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: const [
+          BottomNavigationBarItem(
+            label: "Home",
+            icon: Icon(Icons.abc_sharp),
+          ),
+          BottomNavigationBarItem(
+            label: "Add Alert",
+            icon: Icon(Icons.add),
+          )
+        ],
+      ),
     );
   }
 }
