@@ -105,7 +105,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
-<<<<<<< HEAD
+  fast_contacts:
+    dependency: "direct main"
+    description:
+      name: fast_contacts
+      sha256: "36c02f0772b3068dc094cfb32a9aff2b92ac5a8862192b0bb7412bbdc3b84fca"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   ffi:
     dependency: transitive
     description:
@@ -122,16 +129,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
-=======
-  fast_contacts:
+  firebase_auth:
     dependency: "direct main"
     description:
-      name: fast_contacts
-      sha256: "36c02f0772b3068dc094cfb32a9aff2b92ac5a8862192b0bb7412bbdc3b84fca"
+      name: firebase_auth
+      sha256: "8c97619ed2633148c41c344a59461f23c73bf8aa477ae48296703f06d9621fb0"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
->>>>>>> e3c389124b999b99e70be026e1de14c120cc61ca
+    version: "4.4.2"
+  firebase_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_auth_platform_interface
+      sha256: f7db119be795d79533c503887075a0315fc3ae1da6f9a9cd4f9100a62c68859c
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.13.1"
+  firebase_auth_web:
+    dependency: transitive
+    description:
+      name: firebase_auth_web
+      sha256: "45687246f5be811baf3810652460acd0f3d8c98f9d8f8b1961d7cc5c15c1e803"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.3.2"
   firebase_core:
     dependency: "direct main"
     description:
@@ -267,6 +288,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -315,24 +344,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
-<<<<<<< HEAD
-  petitparser:
-    dependency: transitive
-    description:
-      name: petitparser
-      sha256: "49392a45ced973e8d94a85fdb21293fbb40ba805fc49f2965101ae748a3683b4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.1.0"
-  platform:
-    dependency: transitive
-    description:
-      name: platform
-      sha256: "4a451831508d7d6ca779f7ac6e212b4023dd5a7d08a27a63da33756410e32b76"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.0"
-=======
   permission_handler:
     dependency: "direct main"
     description:
@@ -349,7 +360,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.9.0"
->>>>>>> e3c389124b999b99e70be026e1de14c120cc61ca
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      sha256: "49392a45ced973e8d94a85fdb21293fbb40ba805fc49f2965101ae748a3683b4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
+  platform:
+    dependency: transitive
+    description:
+      name: platform
+      sha256: "4a451831508d7d6ca779f7ac6e212b4023dd5a7d08a27a63da33756410e32b76"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -461,8 +487,4 @@ packages:
     version: "6.2.2"
 sdks:
   dart: ">=2.19.4 <3.0.0"
-<<<<<<< HEAD
   flutter: ">=3.0.0"
-=======
-  flutter: ">=2.5.0"
->>>>>>> e3c389124b999b99e70be026e1de14c120cc61ca
