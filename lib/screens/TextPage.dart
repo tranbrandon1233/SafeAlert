@@ -51,7 +51,7 @@ class TextPage extends StatefulWidget {
    void initState() {
      super.initState();
      requestPermission();
-     getToken();
+     getToken(username.text);
      initInformation();
    }
 
@@ -126,20 +126,20 @@ class TextPage extends StatefulWidget {
      });
    }
 
-   void getToken() async {
+   void getToken(String email) async {
      await FirebaseMessaging.instance.getToken().then(
              (token) {
            setState(() {
              mtoken = token;
              print("My token is $mtoken");
            });
-           saveToken(token!);
+           saveToken(token!, email);
          }
      );
    }
 
-   void saveToken(String token) async {
-     await FirebaseFirestore.instance.collection("UserTokens").doc("User2").set(
+   void saveToken(String token, String email) async {
+     await FirebaseFirestore.instance.collection("UserTokens").doc(email).set(
          {'token': token});
    }
 
