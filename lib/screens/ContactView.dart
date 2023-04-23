@@ -11,17 +11,30 @@ final FirebaseAuth auth = FirebaseAuth.instance;
 final User? user = auth.currentUser;
 final uid = (user != null ? user?.uid : '');
 
+String? getDataOnce_getADocument() {
+  final docRef =
+      FirebaseFirestore.instance.collection("users").doc(user?.email);
+  docRef.get().then(
+    (DocumentSnapshot doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      return data['email']?.toString();
+    },
+    onError: (e) => print("Error getting document: $e"),
+  );
+  return null;
+}
+
 //For updating docs, you can use this function.
 Future<void> updateUserPhone(String? number) {
   return users
       //referring to document ID, this can be queried or named when added accordingly
-      .doc('ryVLvn9MbPW47H7EWlbA')
+      .doc(user?.email)
       //updating grade value of a specific student
-      .update({
+      .set({
         'phone': number ?? "",
         'user': (user != null ? user?.email : ""),
         'uid': uid
-      })
+      }, SetOptions(merge: true))
       .then((value) => print("Phone Number Updated"))
       .catchError((error) => print("Failed to update data"));
 }
@@ -29,9 +42,9 @@ Future<void> updateUserPhone(String? number) {
 Future<void> updateUserEmail(String? email) {
   return users
       //referring to document ID, this can be queried or named when added accordingly
-      .doc('ryVLvn9MbPW47H7EWlbA')
+      .doc(user?.email)
       //updating grade value of a specific student
-      .update({'email': email ?? ""})
+      .set({'email': email ?? ""}, SetOptions(merge: true))
       .then((value) => print("Email Updated"))
       .catchError((error) => print("Failed to update data"));
 }
