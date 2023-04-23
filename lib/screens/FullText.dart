@@ -10,6 +10,7 @@ class FullText extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Emergency Alert!"),
+          backgroundColor: Colors.red,
         ),
         body:
           Container(
