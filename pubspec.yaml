@@ -39,8 +39,14 @@ dependencies:
   firebase_messaging: ^14.4.1
   firebase_remote_config: ^4.0.1
   cloud_firestore: ^4.5.2
+<<<<<<< HEAD
   flutter_local_notifications: ^13.0.0
   http: ^0.13.5
+=======
+  fast_contacts: ^1.1.1
+  permission_handler: ^8.1.6
+  firebase_auth: ^4.4.2
+>>>>>>> e3c389124b999b99e70be026e1de14c120cc61ca
 
 dev_dependencies:
   flutter_test:
