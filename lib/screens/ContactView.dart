@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:fast_contacts/fast_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+//For updating docs, you can use this function.
+Future<void> updateUserPhone(String? number) {
+  return users
+      //referring to document ID, this can be queried or named when added accordingly
+      .doc('ryVLvn9MbPW47H7EWlbA')
+      //updating grade value of a specific student
+      .update({'phone': number ?? ""})
+      .then((value) => print("Phone Number Updated"))
+      .catchError((error) => print("Failed to update data"));
+}
+
+Future<void> updateUserEmail(String? email) {
+  return users
+      //referring to document ID, this can be queried or named when added accordingly
+      .doc('ryVLvn9MbPW47H7EWlbA')
+      //updating grade value of a specific student
+      .update({'email': email ?? ""})
+      .then((value) => print("Email Updated"))
+      .catchError((error) => print("Failed to update data"));
+}
 
 class ContactView extends StatefulWidget {
   final ValueChanged<int> update;
@@ -49,8 +74,14 @@ class _ContactViewState extends State<ContactView> {
                               ? Text(contact.emails[0])
                               : const Text(''),
                           ElevatedButton(
-                            onPressed: () => widget.update(
-                                index), // Passing value to the parent widget.
+                            onPressed: () => {
+                              updateUserPhone(contact.phones.isNotEmpty
+                                  ? contact.phones[0]
+                                  : ""),
+                              updateUserEmail(contact.emails.isNotEmpty
+                                  ? contact.emails[0]
+                                  : "")
+                            }, //widget.update(index), // Passing value to the parent widget.
                             child: const Text('Make My Contact'),
                           )
                         ],

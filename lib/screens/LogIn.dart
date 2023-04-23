@@ -68,14 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: "User Password",
                   prefixIcon: Icon(Icons.lock, color: Colors.black),
                 )),
-            const SizedBox(height: 12.0),
             const Text("Forgot Password?",
                 style: TextStyle(color: Colors.blue)),
-            const SizedBox(height: 88.0),
+            const SizedBox(height: 28.0),
             Container(
                 width: double.infinity,
                 child: RawMaterialButton(
-                    fillColor: const Color(0xFF0069FE),
+                    fillColor: Colors.black,
                     elevation: 0.0,
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     shape: RoundedRectangleBorder(
