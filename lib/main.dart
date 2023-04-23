@@ -2,11 +2,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:safe_alert/firebase_options.dart';
-import 'package:safe_alert/screens/home_screen.dart';
+
 import 'screens/TextPage.dart';
 import 'screens/LogIn.dart';
 
-Future<void> _firebaseMessagingbackgroundHandler(RemoteMessage message) async{
+Future<void> _firebaseMessagingbackgroundHandler(RemoteMessage message) async {
   print("Handling a background message ${message.messageId}");
 }
 

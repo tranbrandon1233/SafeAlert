@@ -37,8 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.10.0
   firebase_messaging: ^14.4.1
+  google_fonts: ^4.0.3
   firebase_remote_config: ^4.0.1
   cloud_firestore: ^4.5.2
+  
   flutter_local_notifications: ^13.0.0
   http: ^0.13.5
   fast_contacts: ^1.1.1
