@@ -8,9 +8,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:safe_alert/screens/FullText.dart';
+import 'package:safe_alert/screens/ContactView.dart';
 
 FirebaseMessaging messaging = FirebaseMessaging.instance;
-
+String errTxt = "";
 final StreamController<String?> selectNotificationStream =
 StreamController<String?>.broadcast();
 const String navigationActionId = 'id_3';
@@ -46,12 +47,14 @@ class TextPage extends StatefulWidget {
    FlutterLocalNotificationsPlugin flutterLocalNotificationPlugin = FlutterLocalNotificationsPlugin();
    TextEditingController username = TextEditingController();
    TextEditingController bodyController = TextEditingController();
+   TextEditingController emailController = TextEditingController();
+
 
    @override
    void initState() {
      super.initState();
      requestPermission();
-     getToken(username.text);
+     getToken(emailController.text);
      initInformation();
    }
 
@@ -127,20 +130,29 @@ class TextPage extends StatefulWidget {
    }
 
    void getToken(String email) async {
-     await FirebaseMessaging.instance.getToken().then(
-             (token) {
-           setState(() {
-             mtoken = token;
-             print("My token is $mtoken");
-           });
-           saveToken(token!, email);
-         }
-     );
+     try {
+       await FirebaseMessaging.instance.getToken().then(
+               (token) {
+             setState(() {
+               mtoken = token;
+               print("My token is $mtoken");
+             });
+             saveToken(token!, email);
+           }
+       );
+     } catch(e){
+       print("ERROR: Email not found.");
+     }
    }
 
    void saveToken(String token, String email) async {
-     await FirebaseFirestore.instance.collection("UserTokens").doc(email).set(
-         {'token': token});
+     try {
+       await FirebaseFirestore.instance.collection("users").doc(email).set(
+           {'token': token
+           }, SetOptions(merge: true));
+     }catch(e){
+       print("ERROR: Token not saved as the email was not found.");
+     }
    }
 
    void requestPermission() async {
@@ -231,6 +243,22 @@ class TextPage extends StatefulWidget {
                    height: 80,
 
                  ),
+               const Text("Type your email here: "),
+               SizedBox(
+                 width: 200,
+                 child: TextFormField(
+                   controller: emailController,
+                   maxLines: 1,
+                 ),
+               ),
+                SizedBox(
+                  height: 80,
+                  child: Text(
+                    errTxt,
+                     selectionColor: Colors.red,
+                 ),
+
+               ),
                  const Text("Customize your emergency text here: "),
                  SizedBox(
                    height: 80,
@@ -242,41 +270,45 @@ class TextPage extends StatefulWidget {
                      maxLines: 5,
                    ),
                  ),
-                 GestureDetector(
-                     onTap: () async {
+             const SizedBox(
+               height: 20,
+             ),
+                 ElevatedButton(
+                     onPressed: () async {
                        String name = username.text.trim();
+                       String email = emailController.text;
                       String bodyText = bodyController.text.trim().isEmpty ?  "$name sent a safety alert to you. Please check in on them as soon as you can.": bodyController.text;
+                      String contactEmail = await getDataOnce_getADocument(email);
                       String titleText = "ALERT! $name might be in danger!";
-                       if (name != "") {
+                       if (name.isNotEmpty && contactEmail.trim().isNotEmpty && email.trim().isNotEmpty) {
                          try {
+                           getToken(email);
                            DocumentSnapshot snap = await FirebaseFirestore
-                               .instance.collection("UserTokens")
-                               .doc(name)
+                               .instance.collection("users")
+                               .doc(contactEmail)
                                .get();
                            String token = snap['token'];
-                           print(token);
                            sendPushMessage(token, bodyText, titleText);
+                           setState((){errTxt = "";});
+
                          }
                          catch(e){
-                           print("Error: User not found.");
+                           setState((){errTxt = "Error: Email not found.";});
                          }
                        }
+
                      },
-                     child: Container(
-                       margin: const EdgeInsets.all(20),
-                       height: 20,
-                       width: 100,
-                       decoration: BoxDecoration(
-                           color: Colors.red,
-                           borderRadius: BorderRadius.circular(20),
-                           boxShadow: [
-                             BoxShadow(
-                               color: Colors.redAccent.withOpacity(0.5),
-                             )
-                           ]
-                       ),
-                       child: Center(child: const Text("Submit")),
+
+                     child:
+
+                        Container(
+                          width: 150,
+                          height: 20,
+
+                          child: Center(child: const Text("Submit")),
+
                      )
+
                  )
                ],
              ),

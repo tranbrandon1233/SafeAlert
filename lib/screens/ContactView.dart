@@ -11,17 +11,18 @@ final FirebaseAuth auth = FirebaseAuth.instance;
 final User? user = auth.currentUser;
 final uid = (user != null ? user?.uid : '');
 
-String? getDataOnce_getADocument() {
-  final docRef =
-      FirebaseFirestore.instance.collection("users").doc(user?.email);
-  docRef.get().then(
-    (DocumentSnapshot doc) {
-      final data = doc.data() as Map<String, dynamic>;
-      return data['email']?.toString();
-    },
-    onError: (e) => print("Error getting document: $e"),
-  );
-  return null;
+Future<String> getDataOnce_getADocument(String email)  async {
+  try {
+    DocumentSnapshot snap = await FirebaseFirestore
+        .instance.collection("users")
+        .doc(email)
+        .get();
+    return snap['email'];
+  }
+  catch(e){
+    print("Token not found.");
+    return "Err";
+  }
 }
 
 //For updating docs, you can use this function.

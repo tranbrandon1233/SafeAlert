@@ -2,6 +2,7 @@
     package="com.example.safe_alert">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
    <application
         android:label="safe_alert"
