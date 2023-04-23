@@ -40,7 +40,9 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+<script src="main.dart.js" type="application/javascript"></script>
   <script>
+
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -54,6 +56,19 @@
         }
       });
     });
+
+      if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function () {
+            navigator.serviceWorker.register('/firebase-messaging-sw.js');
+
+            // Wait for registration to finish before dropping the <script> tag.
+            // Otherwise, the browser will load the script multiple times,
+            // potentially different versions.
+            var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+
+            //  ...
+          });
+      }
   </script>
 </body>
 </html>

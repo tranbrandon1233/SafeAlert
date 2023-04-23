@@ -4,10 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:safe_alert/firebase_options.dart';
 import 'package:safe_alert/screens/home_screen.dart';
 import 'screens/TextPage.dart';
+
+Future<void> _firebaseMessagingbackgroundHandler(RemoteMessage message) async{
+  print("Handling a background message ${message.messageId}");
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(  options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseMessaging.instance.getInitialMessage();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingbackgroundHandler);
   runApp(const MyApp());
 }
 
