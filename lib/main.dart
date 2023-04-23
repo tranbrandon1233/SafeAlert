@@ -45,7 +45,9 @@ class _MyAppState extends State<MyApp> {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: ContactView(update: _updateContact),
+      // home: ContactView(update: _updateContact),
+      home:  const HomeScreen(),
     );
   }
 }
+
