@@ -1,10 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fast_contacts/fast_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:safe_alert/screens/LogIn.dart';
 
 CollectionReference users = FirebaseFirestore.instance.collection('users');
+final FirebaseAuth auth = FirebaseAuth.instance;
+final User? user = auth.currentUser;
+final uid = (user != null ? user?.uid : '');
 
 //For updating docs, you can use this function.
 Future<void> updateUserPhone(String? number) {
@@ -12,7 +17,11 @@ Future<void> updateUserPhone(String? number) {
       //referring to document ID, this can be queried or named when added accordingly
       .doc('ryVLvn9MbPW47H7EWlbA')
       //updating grade value of a specific student
-      .update({'phone': number ?? ""})
+      .update({
+        'phone': number ?? "",
+        'user': (user != null ? user?.email : ""),
+        'uid': uid
+      })
       .then((value) => print("Phone Number Updated"))
       .catchError((error) => print("Failed to update data"));
 }
@@ -25,6 +34,10 @@ Future<void> updateUserEmail(String? email) {
       .update({'email': email ?? ""})
       .then((value) => print("Email Updated"))
       .catchError((error) => print("Failed to update data"));
+}
+
+Future<void> _signOut() async {
+  await FirebaseAuth.instance.signOut();
 }
 
 class ContactView extends StatefulWidget {
@@ -42,6 +55,16 @@ class _ContactViewState extends State<ContactView> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Contact List"),
+        actions: [
+          ElevatedButton(
+            onPressed: () async {
+              _signOut();
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
+            }, //widget.update(index), // Passing value to the parent widget.
+            child: const Text('Sign Out'),
+          )
+        ],
       ),
       body: Container(
         height: double.infinity,

@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(body: LoginScreen()),
+      home: LoginScreen(),
       //home: ContactView(update: _updateContact),
     );
   }
