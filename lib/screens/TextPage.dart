@@ -115,7 +115,6 @@ class TextPage extends StatefulWidget {
          styleInformation: bigTextStyleInformation,
          priority: Priority.high,
          playSound: true,
-         sound: const RawResourceAndroidNotificationSound('alarm.mp3')
        );
        NotificationDetails platformChannelSpecifics = NotificationDetails(
            android: androidPlatformChannelSpecifics,
