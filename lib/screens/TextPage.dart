@@ -183,9 +183,7 @@ class TextPage extends StatefulWidget {
          Uri.parse('https://fcm.googleapis.com/fcm/send'),
          headers: <String, String>{
            'Content-Type': 'application/json',
-           'Authorization': 'key=AAAAwGeS5kI:APA91bHhJsD4rplqy-kepfyibb-yB-EJu9zc3wyo52SwmLiDAb97ZA39YqIWZ4Ul8hXlsQ7nok-UfrMffjLx6UNsXI77jZP-KZusuvRRZaKUQH6rUq5tWTztf3U00kWh44yNxe36N2I9'
-         },
-         body: jsonEncode(
+           'Authorization': 'key={process.env.googleAPIKey}'
            <String, dynamic>{
 
              'priority': 'high',
